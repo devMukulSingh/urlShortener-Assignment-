@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import  bcrypt  from "bcrypt";
+import jwt from "jsonwebtoken";
 
-export default async function POST(
+export async function POST(
     req:Request
 ){
     try {
@@ -24,7 +25,22 @@ export default async function POST(
                 password:hashPassword
             }
         });
-        return NextResponse.json({msg:'user Created',user},{status:201});
+
+        const tokenData = {
+            id:user.id,
+            email:user.email
+        };
+
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET!,{
+            expiresIn:'1d'  
+        });
+
+        const response = NextResponse.json({msg:'user Created',user},{status:201});
+
+        response.cookies.set('token',token,{
+            httpOnly:true,
+        });
+        return response;
     } catch (error) {
         console.log(`Error in User POST req ${error}`);
         return NextResponse.json({error:`Error in User POST req ${error}`},{status:500});

@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast";
 import * as  z from "zod";
 
 interface IformValues {
@@ -18,18 +20,19 @@ interface IformValues {
 
 const SignupPage = () => {
 
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const formSchema = z.object({
         name: z.string({
-            required_error:'Name is required',
-            invalid_type_error:'Name must be a string'
+            required_error: 'Name is required',
+            invalid_type_error: 'Name must be a string'
         }).min(3,),
         email: z.string({
-            required_error:'Email is required',
-            invalid_type_error:'Please enter valid email'
+            required_error: 'Email is required',
+            invalid_type_error: 'Please enter valid email'
         }).email(),
-        password: z.string().min(6,{
-            message:'Password must be atleast 6 characters long'
+        password: z.string().min(6, {
+            message: 'Password must be atleast 6 characters long'
         }),
     });
 
@@ -44,18 +47,24 @@ const SignupPage = () => {
         }
     });
     const onSubmit = async (data: formValue) => {
-        try{
+        try {
             setLoading(true);
-            const res = await axios.post(`/api/signup`,data);
-            console.log(res.data);
-        }catch(e){
+            const res = await axios.post(`/api/signup`, data);
+            console.log(res);
+            if (res.status === 201) {
+                toast.success('Account created');
+                router.push('/');
+            }
+            else {
+                toast.error('Something went wrong, Please try again');
+            }
+        } catch (e) {
+            toast.error('Something went wrong, Please try again');
             console.log(`Error in onSubmit ${e}`);
         }
-        finally{
+        finally {
             setLoading(false);
         }
-        console.log(data);
-
     }
     return (
         <main className="flex justify-center mt-10 w-screen ">
@@ -107,7 +116,7 @@ const SignupPage = () => {
 
                             />
                             <footer className="flex mt-10 items-center gap-10">
-                                <Button 
+                                <Button
                                     disabled={loading}
                                     variant="custom">
                                     Signup

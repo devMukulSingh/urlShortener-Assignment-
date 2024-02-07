@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast";
 import * as  z from "zod";
 
 interface IformValues {
@@ -17,6 +19,7 @@ interface IformValues {
 
 const SignInPage = () => {
 
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const formSchema = z.object({
         email: z.string({
@@ -38,20 +41,25 @@ const SignInPage = () => {
         }
     });
     const onSubmit = async (data: formValue) => {
+   
         try {
             setLoading(true);
             const res = await axios.get(`/api/signin`, {
                 params: data
             });
-            console.log(res.data);
+            if(res.status === 200){
+                toast.success('Login Success');
+                router.push('/');
+            }
+            else if(res.status === 401){
+                toast.error('Invalid username/passsword');
+            }
         } catch (e) {
             console.log(`Error in onSubmit ${e}`);
         }
         finally {
             setLoading(false);
         }
-        console.log(data);
-
     }
     return (
         <main className="flex justify-center mt-10 w-screen ">
@@ -95,7 +103,7 @@ const SignInPage = () => {
                                     variant="custom">
                                     SignIn
                                 </Button>
-                                <Link href={`/signin`}
+                                <Link href={`/signup`}
                                     className="text-sm underline"
                                 >
                                     Did'nt have account? Login
