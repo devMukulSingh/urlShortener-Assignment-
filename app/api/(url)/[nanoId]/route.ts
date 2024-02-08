@@ -1,4 +1,7 @@
+import { getDataFromToken } from "@/actions/getDataFromToken";
+import { getTokenDataInPage } from "@/actions/getTokenDataInPage";
 import { prisma } from "@/lib/prisma";
+import { useSearchParams } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -39,4 +42,28 @@ export async function GET(
         return NextResponse.json({error:`Error in GET url req ${e}`}, { status:500})
     }
 
+}
+
+export async function DELETE(
+    req:NextRequest
+){
+    try{
+        const urlId = req.nextUrl.searchParams.get('urlId');
+        
+    const { id:userId } = getTokenDataInPage();
+    
+    if(!userId) return NextResponse.json( {error:'Unathorised'}, {status:401});
+    
+    await prisma.url.delete({
+        where:{
+            userId,
+            id:urlId
+        }
+    });
+    return NextResponse.json({ msg:"deleted Url"},{status:200});
+    }
+    catch(e){
+        console.log(`Error in DELETE url handler ${e}`);
+        return NextResponse.json({ error:`Error in DELETE url handler ${e}`},{status:500});
+    }
 }

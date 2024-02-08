@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 import { getDataFromToken } from "@/actions/getDataFromToken";
+import { format } from "path";
 
 export async function POST(
     req:NextRequest
@@ -28,6 +29,7 @@ export async function POST(
             where:{
                 userId:tokenData.id,
                 redirectUrl:url,
+
             }
         });
 

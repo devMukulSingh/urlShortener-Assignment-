@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getTokenDataInPage } from './actions/getTokenDataInPage';
+import jwt from "jsonwebtoken";
  
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
@@ -8,15 +10,14 @@ export function middleware(request: NextRequest) {
     console.log(path);
          
     const token = request.cookies.get('token')?.value || '';
-    
-    // const isPublicPath = (path === '/signin' || '/signup' );
+
     let isPublicPath = false;
     if(path==='/signin' || path==='/signup'){
       isPublicPath = true;
     }
     
     if( isPublicPath && token){
-        return NextResponse.redirect(new URL('/', request.nextUrl));
+        return NextResponse.redirect(new URL(`/`, request.nextUrl));
     } 
     if( !isPublicPath && !token){
         return NextResponse.redirect(new URL('/signin',request.nextUrl));

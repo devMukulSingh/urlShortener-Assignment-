@@ -1,19 +1,20 @@
 "use client"
 import Link from 'next/link';
-import { usePathname } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import React from 'react'
 
 const Navlinks = () => {
+    const { userId } = useParams();
     const pathName = usePathname();
     const links = [
         { 
-            href: '/',
-            active : pathName === '/',
+            href: `/`,
+            active : pathName === `/`,
             title:'Home'
         },
         { 
-            href: '/analytics',
-            active : pathName === '/analytics',
+            href: `/analytics`,
+            active : pathName === `/analytics`,
             title:'Analytics',
         },
         // { 

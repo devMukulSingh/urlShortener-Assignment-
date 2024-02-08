@@ -2,7 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import  jwt from "jsonwebtoken";
-import { useSearchParams } from "next/navigation";
 
 export async function GET(
     req:NextRequest,
@@ -35,7 +34,7 @@ export async function GET(
             expiresIn :'1d',
         });
 
-        const respose = NextResponse.json({msg:'Login success',sucess:true},{status:200});
+        const respose = NextResponse.json({msg:'Login success',userId:user.id,sucess:true},{status:200});
 
         respose.cookies.set("token",token, {
             httpOnly:true
