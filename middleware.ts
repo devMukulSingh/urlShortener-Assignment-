@@ -6,16 +6,15 @@ export function middleware(request: NextRequest) {
 
     const path = request.nextUrl.pathname;
     console.log(path);
-    
-     
+         
     const token = request.cookies.get('token')?.value || '';
-    console.log(token);
     
-
-    const isPublicPath = path == ('/signin' || '/signup');
-    console.log(isPublicPath);
+    // const isPublicPath = (path === '/signin' || '/signup' );
+    let isPublicPath = false;
+    if(path==='/signin' || path==='/signup'){
+      isPublicPath = true;
+    }
     
-
     if( isPublicPath && token){
         return NextResponse.redirect(new URL('/', request.nextUrl));
     } 
