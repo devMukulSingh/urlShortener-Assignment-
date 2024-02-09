@@ -107,7 +107,7 @@ const SignInComp = () => {
                                     <Link href={`/signup`}
                                         className="text-sm underline"
                                     >
-                                        Did'nt have account? Login
+                                        Did&apos;nt have account? Login
                                     </Link>
                                 }
                             </footer>

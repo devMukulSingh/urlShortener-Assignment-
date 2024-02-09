@@ -27,6 +27,7 @@ const Navlinks = () => {
             {
                 links.map((link) => (
                     <Link
+                        key={link.href}
                         href={link.href}
                         className={`
                     ${link.active ? 'underline ' : ''}
