@@ -26,7 +26,7 @@ const AnalyticsPage = async () => {
 
 
   return (
-    <main className='flex flex-col gap-5 p-5'>
+    <main className='flex flex-col gap-10 p-5 lg:p-15 md:p-10'>
       <header>
         <h1 className='text-2xl font-semibold space-x-3'>Dashboard</h1>
         <h1>Manage Preferences</h1>

@@ -46,10 +46,8 @@ const SignInComp = () => {
                 toast.success('Login Success');
                 router.push(`/`);
             }
-            else if(res.status === 401){
-                toast.error('Invalid username/passsword');
-            }
         } catch (e) {
+            toast.error(`Incorrect UserName/Password`);
             console.log(`Error in onSubmit ${e}`);
         }
         finally {
@@ -98,11 +96,14 @@ const SignInComp = () => {
                                     variant="custom">
                                     SignIn
                                 </Button>
-                                <Link href={`/signup`}
-                                    className="text-sm underline"
-                                >
-                                    Did'nt have account? Login
-                                </Link>
+                                {
+                                    !loading &&  
+                                    <Link href={`/signup`}
+                                        className="text-sm underline"
+                                        >
+                                        Did'nt have account? Login
+                                    </Link>
+                                }
                             </footer>
                         </div>
                     </form>

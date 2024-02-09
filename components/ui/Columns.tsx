@@ -13,6 +13,7 @@ export type Urls = {
   clicks: number | null,
   updatedAt: Date,
   id:string,
+  userId:string
 }
 
 export const columns: ColumnDef<Urls>[] = [

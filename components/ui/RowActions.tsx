@@ -5,7 +5,7 @@ import toast from "react-hot-toast"
 import axios from "axios"
 import { useState } from "react"
 import { useRouter } from "next/navigation";
-import { EditDialog } from "../edit/EditDialog"
+import  EditDialog from "@/components/edit/EditDialog";
 
 
 interface RowActionProps {
@@ -16,11 +16,10 @@ const RowActions: React.FC<RowActionProps> = ({
     data
 }) => {
     const router = useRouter();
-    const [loading, setLoading] = useState(false);
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     const handleCopy = () => {
-        window.navigator.clipboard.writeText(data.nanoId);
+        window.navigator.clipboard.writeText(data.shortenedUrl);
         toast.success('Url Copied to Clipboard');
     }
     const handleDelete = async () => {
@@ -38,6 +37,7 @@ const RowActions: React.FC<RowActionProps> = ({
     }
     return (
         <main>
+            { open && <EditDialog open={open} setOpen={setOpen} urlData={data} />}
             <DropdownMenu>
                 <DropdownMenuTrigger><Menu /></DropdownMenuTrigger>
                 <DropdownMenuContent>
