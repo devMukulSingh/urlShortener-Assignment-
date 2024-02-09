@@ -55,6 +55,7 @@ export async function DELETE(
     await prisma.url.delete({
         where:{
             userId,
+            //@ts-ignore
             id:urlId
         }
     });
