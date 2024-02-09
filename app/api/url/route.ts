@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 import { getDataFromToken } from "@/actions/getDataFromToken";
 import { format } from "path";
+import { BASE_URL } from "@/lib/constants";
 
 export async function POST(
     req:NextRequest
@@ -33,7 +34,7 @@ export async function POST(
             }
         });
 
-        let shortUrl = `http://localhost:3000/api/${shortedUrl?.nanoId}`;
+        let shortUrl = `${BASE_URL}/${shortedUrl?.nanoId}`;
 
         if(shortedUrl) return NextResponse.json(shortUrl,{status:201});
 
@@ -51,7 +52,7 @@ export async function POST(
             },
         });
         
-        shortUrl = `http://localhost:3000/api/${nanoId}`;
+        shortUrl = `${BASE_URL}/${nanoId}`;
 
         return NextResponse.json(shortUrl,{status:201});
 
