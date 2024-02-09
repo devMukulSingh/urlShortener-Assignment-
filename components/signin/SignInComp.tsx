@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import * as  z from "zod";
 
 const SignInComp = () => {
-    
+
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const formSchema = z.object({
@@ -35,20 +35,26 @@ const SignInComp = () => {
         }
     });
     const onSubmit = async (data: formValue) => {
-   
+
         try {
             setLoading(true);
             const res = await axios.get(`/api/signin`, {
                 params: data
             });
-            if(res.status === 200){
-                const { userId } = res.data;
-                toast.success('Login Success');
-                router.push(`/`);
+            const { userId } = res.data;
+            toast.success('Login Success');
+            localStorage.setItem('userId', userId);
+            router.push(`/${userId}`);
+
+        } catch (e: any) {
+
+            if (e.response.status === 400) {
+                toast.error(`${e.response.data.error}`);
             }
-        } catch (e) {
-            toast.error(`Incorrect UserName/Password`);
-            console.log(`Error in onSubmit ${e}`);
+            else {
+                toast.error('Something went wrong, Please try again');
+                console.log(`Error in onSubmit ${e}`);
+            }
         }
         finally {
             setLoading(false);
@@ -97,10 +103,10 @@ const SignInComp = () => {
                                     SignIn
                                 </Button>
                                 {
-                                    !loading &&  
+                                    !loading &&
                                     <Link href={`/signup`}
                                         className="text-sm underline"
-                                        >
+                                    >
                                         Did'nt have account? Login
                                     </Link>
                                 }

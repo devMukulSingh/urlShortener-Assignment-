@@ -7,28 +7,28 @@ const Navlinks = () => {
     const { userId } = useParams();
     const pathName = usePathname();
     const links = [
-        { 
-            href: `/`,
-            active : pathName === `/`,
-            title:'Home'
+        {
+            href: `/${userId}`,
+            active: pathName === `/${userId}`,
+            title: 'Home'
         },
-        { 
-            href: `/analytics`,
-            active : pathName === `/analytics`,
-            title:'Analytics',
+        {
+            href: `/${userId}/analytics`,
+            active: pathName === `/${userId}/analytics`,
+            title: 'Analytics',
         },
         // { 
         //     href: '/',
         //     visited : pathName === '/'
         // }
     ]
-  return (
-    <main className='flex gap-10'>
-        {
-            links.map( (link) => (
-                <Link
-                    href={link.href} 
-                    className={`
+    return (
+        <main className='flex gap-10'>
+            {
+                links.map((link) => (
+                    <Link
+                        href={link.href}
+                        className={`
                     ${link.active ? 'underline ' : ''}
                     text-xl
                      font-semibold
@@ -36,14 +36,14 @@ const Navlinks = () => {
                      ease-in-out 
                      hover:scale-110 
                      hover:underline`
-                    }
-                     >
-                    {link.title}
-                </Link>
-            ))
-        }
-    </main>
-  )
+                        }
+                    >
+                        {link.title}
+                    </Link>
+                ))
+            }
+        </main>
+    )
 }
 
 export default Navlinks

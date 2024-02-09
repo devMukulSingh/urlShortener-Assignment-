@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { Copy } from 'lucide-react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -14,23 +15,29 @@ import * as z from "zod";
 
 const HomePage = () => {
 
+    const { userId } = useParams();
     const [loading, setLoading] = useState(false);
     const [shortUrl, setShortUrl] = useState('');
     type formItems = z.infer<typeof formSchema>;
 
     const formSchema = z.object({
-        url: z.string().url()
+        url: z.string().url({
+            message:'Enter valid Url',
+        }),
     });
 
     const form = useForm<formItems>({
+        defaultValues: {
+            url: 'https://'
+        },
         resolver: zodResolver(formSchema)
     })
-
 
     const onSubmit = async (data: { url: string }) => {
         setLoading(true);
         try {
-            const res = await axios.post(`/api`, data);
+            // toast.promise()
+            const res = await axios.post(`/api/url`, data);
             if (res.status === 201) {
                 setShortUrl(res.data);
                 toast.success(`Url shorted`);
@@ -42,7 +49,7 @@ const HomePage = () => {
             toast.error(`Something went wrong, PLease try again`);
             console.log(`Error in onSubmit ${e}`);
         }
-        finally{
+        finally {
             setLoading(false);
         }
     }
@@ -62,7 +69,7 @@ const HomePage = () => {
                                 <FormItem>
                                     <FormLabel>Enter URL to be shorted</FormLabel>
                                     <FormControl>
-                                        <Input className='h-14 text-xl' placeholder='Enter the url'{...field} />
+                                        <Input className='h-14 text-xl' placeholder='https://youtube.com'{...field} />
                                     </FormControl>
                                 </FormItem>
                             )}
@@ -86,7 +93,7 @@ const HomePage = () => {
                         href={shortUrl}
                         target='blank'
                     >
-                         {shortUrl}
+                        {shortUrl}
                     </a>
                     <Button
                         variant="ghost"

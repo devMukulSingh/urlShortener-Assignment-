@@ -1,4 +1,5 @@
 "use client"
+import { getUserId } from "@/actions/getUserId";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
@@ -50,17 +51,21 @@ const SignupPage = () => {
         try {
             setLoading(true);
             const res = await axios.post(`/api/signup`, data);
-            console.log(res);
-            if (res.status === 201) {
-                toast.success('Account created');
-                router.push('/');
+            const { id } = res.data.user;
+            localStorage.setItem('userId', id);
+            toast.success('Account created');
+            router.push(`/${id}`);
+
+        } catch (e:any) {
+
+            if (e.response.status === 400){
+                toast.error(`${e.response.data.error}`);
+
             }
-            else {
+            else{
                 toast.error('Something went wrong, Please try again');
+                console.log(`Error in onSubmit ${e}`);
             }
-        } catch (e) {
-            toast.error('Something went wrong, Please try again');
-            console.log(`Error in onSubmit ${e}`);
         }
         finally {
             setLoading(false);

@@ -20,11 +20,11 @@ export async function GET(
             }
         });
         
-        if( !user ) return NextResponse.json( {error:'Incorrect username/password'},{ status:401} );
+        if( !user ) return NextResponse.json( {error:'Incorrect username/password'},{status:400} );
         
         const isAuth = bcrypt.compareSync(password,user.password);
         
-        if(!isAuth) return NextResponse.json({error:'Incorrect username/password'},{status:401});
+        if(!isAuth) return NextResponse.json({error:'Incorrect username/password'},{status:400});
         
         const tokenData = {
             id:user.id,

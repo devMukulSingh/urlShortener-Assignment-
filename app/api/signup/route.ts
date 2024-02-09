@@ -9,12 +9,21 @@ export async function POST(
     try {
         const { name,email,password } = await req.json();
     
-        if(!name ) return NextResponse.json({error:'Name is required'},{status:400});
+        if(!name ) return NextResponse.json( {error:'Name is required'},{status:400});
     
         if(!email ) return NextResponse.json({error:'email is required'},{status:400});
     
         if(!password ) return NextResponse.json({error:'password is required'},{status:400});
         
+        const userByEmail = await prisma.user.findFirst({
+            where:{
+                email
+            }
+        });
+
+        if( userByEmail ) return NextResponse.json({ error:'User already exists'},{status:400});
+
+
         const salt = await bcrypt.genSalt(10);
         const hashPassword = bcrypt.hashSync(password,salt);
 

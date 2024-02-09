@@ -10,7 +10,7 @@ import { Button } from '../ui/button';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { Url } from '@prisma/client'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 interface EditDialogProps {
     open: boolean,
@@ -33,6 +33,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
 }) => {
 
     const router = useRouter();
+    const { userId } = useParams();
     const [loading, setLoading] = useState(false);
 
     type formItems = z.infer<typeof formSchema>;
@@ -50,7 +51,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
     const onSubmit = async (data: formItems) => {
         try {
             setLoading(true);
-            const res = await axios.put(`api/url/${urlData.userId}`, {
+            const res = await axios.put(`/api/url/${userId}`, {
                 data: {
                     id: urlData.id,
                     toUpdateUrl: data.redirectUrl,

@@ -1,7 +1,5 @@
-import { getDataFromToken } from "@/actions/getDataFromToken";
 import { getTokenDataInPage } from "@/actions/getTokenDataInPage";
 import { prisma } from "@/lib/prisma";
-import { useSearchParams } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -52,7 +50,7 @@ export async function DELETE(
         
     const { id:userId } = getTokenDataInPage();
     
-    if(!userId) return NextResponse.json( {error:'Unathorised'}, {status:401});
+    if(!userId) return NextResponse.json( {error:'Unauthorised'}, {status:401});
     
     await prisma.url.delete({
         where:{
