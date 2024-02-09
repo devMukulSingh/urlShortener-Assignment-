@@ -43,7 +43,6 @@ const SignInComp = () => {
             });
             const { userId } = res.data;
             toast.success('Login Success');
-            localStorage.setItem('userId', userId);
             router.push(`/${userId}`);
 
         } catch (e: any) {

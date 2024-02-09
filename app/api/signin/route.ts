@@ -39,6 +39,7 @@ export async function GET(
         respose.cookies.set("token",token, {
             httpOnly:true
         });
+        respose.cookies.set("userId",user.id);
 
         return respose;
 

@@ -49,6 +49,7 @@ export async function POST(
         response.cookies.set('token',token,{
             httpOnly:true,
         });
+        response.cookies.set('userId',user.id);
         return response;
     } catch (error) {
         console.log(`Error in User POST req ${error}`);
