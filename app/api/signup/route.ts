@@ -50,7 +50,7 @@ export async function POST(
             httpOnly:true,
         });
         response.cookies.set('userId',user.id);
-        return response;
+        return response;signu
     } catch (error) {
         console.log(`Error in User POST req ${error}`);
         return NextResponse.json({error:`Error in User POST req ${error}`},{status:500});

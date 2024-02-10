@@ -1,7 +1,7 @@
 import { Loader } from 'lucide-react'
 import React from 'react'
 
-const loading = () => {
+const Loading = () => {
     return (
         <main className='flex justify-center mt-20 w-full z-10'>
             <Loader className='transition animate-spin' size={48} />
@@ -9,4 +9,4 @@ const loading = () => {
     )
 }
 
-export default loading
+export default Loading

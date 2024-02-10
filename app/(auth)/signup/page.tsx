@@ -5,6 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { Loader } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -73,6 +74,7 @@ const SignupPage = () => {
     }
     return (
         <main className="flex justify-center mt-10 w-screen ">
+            {loading && <Loader className="absolute z-10 transition animate-spin" size={40} />}
             <section className="w-fit border px-5 py-10 space-y-5 ">
                 <h1 className="text-2xl font-semibold underline">SignUp</h1>
                 <Form {...form}>

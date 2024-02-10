@@ -8,7 +8,7 @@ export async function GET(
         const res = NextResponse.json({message:'Logout Successful', success:true},{status:200});
         
         res.cookies.delete('userId');
-        res.cookies.delete('token')
+        res.cookies.delete('token');
 
         return res;
 
