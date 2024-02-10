@@ -2,7 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 import { getDataFromToken } from "@/actions/getDataFromToken";
-import { format } from "path";
 import { BASE_URL } from "@/lib/constants";
 
 export async function POST(

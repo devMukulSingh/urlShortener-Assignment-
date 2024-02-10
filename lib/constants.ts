@@ -1,5 +1,3 @@
 
 
-// export const BASE_URL = "http://localhost:3000/api";
-
-export const BASE_URL = "https://shortlr.vercel.app/api";
+export const BASE_URL = process.env.NODE_ENV ==="production" ? "https://shortlr.vercel.app/api" : "http://localhost:3000/api"

@@ -17,10 +17,7 @@ const Navlinks = () => {
             active: pathName === `/${userId}/analytics`,
             title: 'Analytics',
         },
-        // { 
-        //     href: '/',
-        //     visited : pathName === '/'
-        // }
+
     ]
     return (
         <main className='flex gap-10'>

@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { Copy } from 'lucide-react';
-import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
@@ -15,7 +14,6 @@ import * as z from "zod";
 
 const HomePage = () => {
 
-    const { userId } = useParams();
     const [loading, setLoading] = useState(false);
     const [shortUrl, setShortUrl] = useState('');
     type formItems = z.infer<typeof formSchema>;

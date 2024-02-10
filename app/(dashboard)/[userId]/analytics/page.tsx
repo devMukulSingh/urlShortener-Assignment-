@@ -1,9 +1,8 @@
 import { DataTable } from '@/components/ui/DataTable';
 import { columns } from "@/components/ui/Columns";
 import { prisma } from '@/lib/prisma';
-import { cookies } from 'next/headers';
 import { getTokenDataInPage } from '@/actions/getTokenDataInPage';
-import { BASE_URL } from '@/lib/constants';
+import  {BASE_URL}  from '@/lib/constants';
 import {format} from "date-fns";
 
 const AnalyticsPage = async () => {
