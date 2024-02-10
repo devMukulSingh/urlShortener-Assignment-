@@ -12,9 +12,6 @@ const Navbar = () => {
   const router = useRouter();
   const handleLogout = async() => {
     try{
-      if(typeof window !== 'undefined'){
-        localStorage.clear();
-      }
       const res = await axios.get(`/api/logout`);
       if(res.status === 200){
         toast.success('Logout sucess');

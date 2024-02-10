@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function GET(
     req:Request
@@ -7,8 +8,10 @@ export async function GET(
 
         const res = NextResponse.json({message:'Logout Successful', success:true},{status:200});
         
-        res.cookies.set('userId','');
-        res.cookies.set('token','');
+        await res.cookies.set('userId','');
+        await res.cookies.set('token','');
+        // const cookieStore = cookies();
+        // cookieStore.delete
 
         return res;
 
