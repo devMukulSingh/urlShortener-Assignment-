@@ -8,9 +8,11 @@ export async function GET(
 
         const res = NextResponse.json({message:'Logout Successful', success:true},{status:200});
         
-        await res.cookies.set('token','');
-        
-        await res.cookies.set('userId','');
+        const cookieStore = cookies();
+
+        await cookieStore.delete('token');
+
+        await cookieStore.delete('userId');
 
         return res;
 
